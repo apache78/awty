@@ -3,6 +3,7 @@ package edu.washington.apache78.Awty;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.telephony.SmsManager;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -14,7 +15,14 @@ public class AlarmReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         String message = intent.getStringExtra("MESSAGE");
         String number = intent.getStringExtra("NUMBER");
-        Toast.makeText(context, number +" : " + message, Toast.LENGTH_LONG).show();
+
+        try{
+            SmsManager sms = SmsManager.getDefault();
+            Toast.makeText(context, number +" : " + message, Toast.LENGTH_LONG).show();
+            sms.sendTextMessage(number, null, message, null, null);
+        }catch(Exception e){
+            Toast.makeText(context, "SMS FAILED, try again", Toast.LENGTH_LONG).show();
+        }
         Log.i("AWTY", "Fired");
     }
 }

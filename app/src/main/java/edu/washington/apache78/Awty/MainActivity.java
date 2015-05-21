@@ -75,6 +75,7 @@ public class MainActivity extends Activity {
         //check to see if user gave valid number
         String num = interval.getText().toString();
         int numberGiven;
+
         try{
             numberGiven = Integer.parseInt(num);
             time = numberGiven;
